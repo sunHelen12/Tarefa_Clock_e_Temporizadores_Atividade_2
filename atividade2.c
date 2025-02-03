@@ -3,9 +3,9 @@
 #include "pico/time.h" //biblioteca para uso de temporizadores (add_alarm_in_ms)
 
 //define os pinos GPIOs para os LEDs
-#define LED_PIN_BLUE 11
-#define LED_PIN_RED 12
-#define LED_PIN_GREEN 13
+#define LED_PIN_BLUE 12
+#define LED_PIN_RED 13
+#define LED_PIN_GREEN 11
 
 //define o pino GPIO para o botão
 #define BUTTON_0 5
