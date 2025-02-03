@@ -1,37 +1,85 @@
 #include <stdio.h> //biblioteca padrão para entrada e saída (printf, scanf, etc.)
-#include "pico/stdlib.h" //biblioteca padrão para alocação de memória, controle de processos, etc.
-#include "hardware/timer.h" //biblioteca da Raspberry Pi Pico para funções básicas (GPIO, UART, delays, etc.)
+#include "pico/stdlib.h" //biblioteca para controle de GPIO, UART e temporização
+#include "pico/time.h" //biblioteca para uso de temporizadores (add_alarm_in_ms)
 
 //define os pinos GPIOs para os LEDs
-#define LED_PIN_BLUE 10
-#define LED_PIN_RED 11
-#define LED_PIN_GREEN 12
+#define LED_PIN_BLUE 11
+#define LED_PIN_RED 12
+#define LED_PIN_GREEN 13
 
 //define o pino GPIO para o botão
 #define BUTTON_0 5
 
-// variavel de controle
+//variável de controle
 bool sequence_active = false; //indica se a sequência está ativa
+int64_t turn_off_green_callback(alarm_id_t id, void *user_data);
+
 
 //rotina de callback para desligar o LED verde
-int16_t turn_off_green_callback(alarm_id_t id, void *user_data){
+int64_t turn_off_green_callback(alarm_id_t id, void *user_data) {
     gpio_put(LED_PIN_GREEN, false); //desliga o LED verde
     sequence_active = false; //permite nova ativação pelo botão
     return 0;
 }
 
 //rotina de callback para desligar o LED vermelho e ligar o LED verde
-int64_t turn_off_red_callback(alarm_id_t id, void *user_data){
+int64_t turn_off_red_callback(alarm_id_t id, void *user_data) { 
     gpio_put(LED_PIN_RED, false); //desliga o LED vermelho
-    gpio_put(LED_PIN_GREEN, true); //liga o LED verde
-    add_alarm_in_ms(3000, turn_off_green_callback, NULL, false); //alarme que agenda o desligamento do LED verde
+    gpio_put(LED_PIN_GREEN, true); //desliga o LED verde
+    add_alarm_in_ms(3000, turn_off_green_callback, NULL, false); //agenda o desligamento do LED verde
     return 0;
 }
 
 //rotina de callback para desligar o LED azul e ligar o LED vermelho 
-int16_t turn_off_blue_callback(alarm_id_t id, void *user_data){
+int64_t turn_off_blue_callback(alarm_id_t id, void *user_data) { 
     gpio_put(LED_PIN_BLUE, false); //desliga o LED azul
-    gpio_put(LED_PIN_RED, true); // liga o LED vermelho
-    add_alarm_in_ms(3000, turn_off_red_callback, NULL, false); //alarme que agenda o desligamento do LED vermelho
+    gpio_put(LED_PIN_RED, true); //liga o LED vermelho
+    add_alarm_in_ms(3000, turn_off_red_callback, NULL, false); //agenda o desligamento do LED vermelho
+    return 0;
+}
+
+//função principal
+int main() {
+    //inicializa a comunicação serial
+    stdio_init_all();
+
+    //configuração dos LEDs
+    //inicializa os LEDs
+    gpio_init(LED_PIN_BLUE); 
+    gpio_init(LED_PIN_RED); 
+    gpio_init(LED_PIN_GREEN); 
+
+    //configura como saída
+    gpio_set_dir(LED_PIN_BLUE, GPIO_OUT); 
+    gpio_set_dir(LED_PIN_RED, GPIO_OUT);
+    gpio_set_dir(LED_PIN_GREEN, GPIO_OUT);
+
+    //configuração do botão 
+    gpio_init(BUTTON_0); //inicializa o botão
+    gpio_set_dir(BUTTON_0, GPIO_IN); //configura como entrada
+    gpio_pull_up(BUTTON_0); //configura pull-up interno
+
+    //loop principal
+    while (true) {
+        //verifica se o botão foi pressionado e se a sequência não está ativa
+        if (gpio_get(BUTTON_0) == 0 && !sequence_active) {
+            sleep_ms(50); //atraso para debounce
+
+            //confirma o pressionamento do botão
+            if (gpio_get(BUTTON_0) == 0) {
+                sequence_active = true; //bloqueia novas ativações
+
+                //liga todos os LEDs
+                gpio_put(LED_PIN_BLUE, true);
+                gpio_put(LED_PIN_RED, true);
+                gpio_put(LED_PIN_GREEN, true);
+
+                //inicia a sequência de desligamento com temporizador
+                add_alarm_in_ms(3000, turn_off_blue_callback, NULL, false);
+            }
+        }
+        sleep_ms(10); //pequena pausa para reduzir consumo de CPU
+    }
+
     return 0;
 }

@@ -1,67 +1,67 @@
 {
-    "version": 1,
-    "author": "Helen",
-    "editor": "wokwi",
-    "parts": [
-      {
-        "type": "board-pi-pico-w",
-        "id": "pico",
-        "top": -22.45,
-        "left": 253.15,
-        "attrs": { "builder": "pico-sdk" }
-      },
-      { "type": "wokwi-led", "id": "led1", "top": 82.8, "left": 90.2, "attrs": { "color": "red" } },
-      { "type": "wokwi-led", "id": "led2", "top": 44.4, "left": 90.2, "attrs": { "color": "blue" } },
-      {
-        "type": "wokwi-led",
-        "id": "led3",
-        "top": 121.2,
-        "left": 90.2,
-        "attrs": { "color": "green" }
-      },
-      {
-        "type": "wokwi-resistor",
-        "id": "r1",
-        "top": 195.95,
-        "left": 96,
-        "attrs": { "value": "330000" }
-      },
-      {
-        "type": "wokwi-resistor",
-        "id": "r2",
-        "top": 176.75,
-        "left": 96,
-        "attrs": { "value": "330000" }
-      },
-      {
-        "type": "wokwi-resistor",
-        "id": "r3",
-        "top": 215.15,
-        "left": 96,
-        "attrs": { "value": "330000" }
-      },
-      {
-        "type": "wokwi-pushbutton",
-        "id": "btn1",
-        "top": 6.2,
-        "left": 172.8,
-        "attrs": { "color": "black" }
-      }
-    ],
-    "connections": [
-      [ "pico:GP0", "$serialMonitor:RX", "", [] ],
-      [ "pico:GP1", "$serialMonitor:TX", "", [] ],
-      [ "led1:A", "pico:GP11", "red", [ "h38.4", "v-9.6", "h105.6" ] ],
-      [ "led2:A", "pico:GP10", "blue", [ "v0", "h124.8", "v28.8" ] ],
-      [ "led3:A", "pico:GP12", "green", [ "v0", "h124.8", "v-28.8" ] ],
-      [ "led2:C", "r3:1", "black", [ "v0", "h-57.2", "v144" ] ],
-      [ "r3:2", "pico:GND.4", "black", [ "v0", "h94.8", "v-67.2" ] ],
-      [ "led1:C", "r1:1", "black", [ "v0", "h-38", "v76.8" ] ],
-      [ "r1:2", "pico:GND.4", "black", [ "h94.8", "v-48.04" ] ],
-      [ "led3:C", "r2:1", "black", [ "v0", "h-18.8", "v19.2" ] ],
-      [ "r2:2", "pico:GND.4", "black", [ "v0", "h94.8", "v-28.8" ] ],
-      [ "pico:GND.1", "btn1:1.r", "black", [ "h0" ] ],
-      [ "btn1:2.r", "pico:GP5", "green", [ "h0.2", "v9.8" ] ]
-    ],
-    "dependencies": {}
-  }
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-pi-pico-w",
+      "id": "pico",
+      "top": -22.45,
+      "left": 253.15,
+      "attrs": { "builder": "pico-sdk" }
+    },
+    { "type": "wokwi-led", "id": "led1", "top": 82.8, "left": 90.2, "attrs": { "color": "red" } },
+    { "type": "wokwi-led", "id": "led2", "top": 34.8, "left": 90.2, "attrs": { "color": "blue" } },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "top": 130.8,
+      "left": 90.2,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 215.15,
+      "left": 96,
+      "attrs": { "value": "330000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 195.95,
+      "left": 96,
+      "attrs": { "value": "330000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": 234.35,
+      "left": 96,
+      "attrs": { "value": "330000" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 6.2,
+      "left": 172.8,
+      "attrs": { "color": "black" }
+    }
+  ],
+  "connections": [
+    [ "pico:GP0", "$serialMonitor:RX", "", [] ],
+    [ "pico:GP1", "$serialMonitor:TX", "", [] ],
+    [ "led2:C", "r3:1", "black", [ "v0", "h-57.2", "v144" ] ],
+    [ "r3:2", "pico:GND.4", "black", [ "v0", "h94.8", "v-67.2" ] ],
+    [ "led1:C", "r1:1", "black", [ "v0", "h-38", "v76.8" ] ],
+    [ "r1:2", "pico:GND.4", "black", [ "h94.8", "v-48.04" ] ],
+    [ "led3:C", "r2:1", "black", [ "v0", "h-18.8", "v19.2" ] ],
+    [ "r2:2", "pico:GND.4", "black", [ "v0", "h94.8", "v-28.8" ] ],
+    [ "pico:GND.1", "btn1:1.r", "black", [ "h0" ] ],
+    [ "btn1:2.r", "pico:GP5", "green", [ "h0.2", "v9.8" ] ],
+    [ "led3:A", "pico:GP13", "green", [ "h67.2", "v-28.8", "h76.8" ] ],
+    [ "led1:A", "pico:GP12", "red", [ "v0" ] ],
+    [ "pico:GP11", "led2:A", "blue", [ "h-76.8", "v-38.4", "h-67.2" ] ]
+  ],
+  "dependencies": {}
+}
