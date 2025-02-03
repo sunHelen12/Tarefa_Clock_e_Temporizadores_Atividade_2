@@ -1,0 +1,5 @@
+[wokwi]
+version = 1
+firmware = 'build/atividade2.uf2'
+elf = 'build/atividade2.elf'
+gdbServerPort = 3333
