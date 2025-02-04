@@ -1,4 +1,4 @@
-<h1 align="center">Tarefa - Temporizador One Shot - Embarcatech 🔵 🔴 🟢  </h1>
+<h1 align="center">Tarefa Temporizador One Shot - Embarcatech 🔵 🔴 🟢  </h1>
 <p>Este projeto utiliza o Raspberry Pi Pico W para controlar uma sequência de LEDs (azul, vermelho e verde) com base no pressionamento de um botão. A sequência de LEDs é ativada ao pressionar o botão e, em seguida, os LEDs são apagados em uma ordem predefinida de 3 segundos de intervalo.</p>   
 
 <h2>Descrição</h2>
@@ -16,7 +16,7 @@
 <p>Esse código foi produzido em um Sistema Operacional Linux. Certifique-se de importar o projeto adequadamente e verificar as configurações do <code>c_cpp_properties.json</code>.</p>
 
 <h2>Demonstração</h2>
-    <img src="assets/semaforo.gif" width="500" height="300">
+    <img src="assets/1.gif" width="500" height="300">
 
 <h2>Componentes Necessários</h2>
     <ul>
