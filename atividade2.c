@@ -50,7 +50,7 @@ int64_t turn_off_blue_callback(alarm_id_t id, void *user_data) {
     return 0;
 }
 
-// função de callback para desligar o LED vermelho e acender o azul
+// função de callback para desligar o LED vermelho
 int64_t turn_off_red_callback(alarm_id_t id, void *user_data) { 
     gpio_put(LED_PIN_RED, false);    // desliga o LED vermelho
     gpio_put(LED_PIN_BLUE, true);    // acende o LED azul
@@ -59,7 +59,7 @@ int64_t turn_off_red_callback(alarm_id_t id, void *user_data) {
     return 0;
 }
 
-// função de callback para desligar o LED verde e acender o vermelho
+// função de callback para desligar o LED verde 
 int64_t turn_off_green_callback(alarm_id_t id, void *user_data) {
     gpio_put(LED_PIN_GREEN, false);  // desliga o LED verde
     gpio_put(LED_PIN_RED, true);     // acende o LED vermelho
